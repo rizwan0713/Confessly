@@ -3,6 +3,8 @@ import UserModel from "@/model/User";
 import bcrypt from "bcryptjs"
 
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { ifError } from "assert";
+import { messageSchema } from "@/schemas/messageSchema";
 
 
 export async function POST (request:Request){
@@ -28,7 +30,13 @@ export async function POST (request:Request){
        
 
          if(existingUserByEmail){
-            true
+           if(existingUserByEmail.isVerified){
+            return Response.json({
+                success:false ,message:"User already exist with this email"
+               },{
+                   status:400
+               })
+           }
          }
          else{
             const hasedPassword = await bcrypt.hash(password,10)
@@ -47,7 +55,26 @@ export async function POST (request:Request){
             })
 
             await newUser.save() 
+
          }
+         //send verification email
+       const emailResponse =  await sendVerificationEmail(
+            email,
+            username,
+            verifyCode
+         )
+         if (emailResponse.success) {
+            return Response.json({
+             success:false ,message:emailResponse.message
+            },{
+                status:500
+            })
+            
+         }
+         return Response.json({
+            success:true ,
+            message:"User registered successfully.please verify your email"
+           },{status:500 })
     }
     catch(error){
         //below line gives error in terminal
