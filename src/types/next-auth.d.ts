@@ -1,7 +1,7 @@
 import "next-auth"
 import { DefaultSession } from "next-auth";
 
-
+//Predefined user ko update kr rhe hain to give more power to TOKEN
 
 declare module 'next-auth'{
  interface User{

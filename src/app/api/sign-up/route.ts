@@ -31,19 +31,27 @@ export async function POST (request:Request){
 
          if(existingUserByEmail){
            if(existingUserByEmail.isVerified){
+              
             return Response.json({
                 success:false ,message:"User already exist with this email"
                },{
                    status:400
                })
            }
+           else{
+            const hasedPassword = await bcrypt.hash(password,10)
+            existingUserByEmail.password = hasedPassword;
+            existingUserByEmail.verifyCode = verifyCode;
+            existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000)
+            await existingUserByEmail.save()
+           }
          }
          else{
-            const hasedPassword = await bcrypt.hash(password,10)
-            const expiryDate = new Date()
-            expiryDate.setHours(expiryDate.getHours() + 1)
-
-            const newUser = new UserModel({
+             const hasedPassword = await bcrypt.hash(password,10)
+             const expiryDate = new Date()
+             expiryDate.setHours(expiryDate.getHours() + 1)
+             
+             const newUser = new UserModel({
                 username,
                 email,
                 password:hasedPassword,
@@ -57,20 +65,22 @@ export async function POST (request:Request){
             await newUser.save() 
 
          }
-         //send verification email
-       const emailResponse =  await sendVerificationEmail(
+
+
+            //send verification email
+        const emailResponse =  await sendVerificationEmail(
             email,
             username,
             verifyCode
-         )
-         if (emailResponse.success) {
+            )
+            if (!emailResponse.success) {
             return Response.json({
-             success:false ,message:emailResponse.message
+                success:false ,message:emailResponse.message
             },{
                 status:500
             })
             
-         }
+            }
          return Response.json({
             success:true ,
             message:"User registered successfully.please verify your email"

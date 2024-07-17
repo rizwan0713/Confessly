@@ -1,6 +1,6 @@
 import mongoose,{Schema,Document} from "mongoose";
 
-//type Script ka code
+//typeScript ka code
 export interface Message extends Document{
  content:string;
  createdAt:Date
