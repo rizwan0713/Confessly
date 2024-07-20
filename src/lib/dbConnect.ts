@@ -16,9 +16,13 @@ async function dbConnect():Promise<void>{
             MONGODB_URI || "",{})
 
             connection.isConnected = db.connections[0].readyState
-            console.log("DB connected successfully");
-            console.log("db.connection",db.connections);
-            console.log("db console karte h",db);
+            // console.log("DB connected successfully");
+            // console.log("00000000000000000000\n");
+
+            // console.log("db.connection",db.connections);
+
+            // console.log("1111111111111111\n");
+            // console.log("db console karte h",db);
 
 
     }

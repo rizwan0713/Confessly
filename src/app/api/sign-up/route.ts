@@ -16,21 +16,23 @@ export async function POST (request:Request){
             username,
             isVerified:true
          })
-
          if(existingUserVerifiedByUsername){
             return Response.json({
                 success:false ,message:"Username is already Taken"}
                 ,{status:400}
             )
          }
-
          const existingUserByEmail = await UserModel.findOne({email}) 
 
          const verifyCode = Math.floor(100000 + Math.random() * 900000).toString()
+        
        
 
          if(existingUserByEmail){
+         console.log("1111111111111  inside if")
+
            if(existingUserByEmail.isVerified){
+         console.log("1111111111111")
               
             return Response.json({
                 success:false ,message:"User already exist with this email"
@@ -39,6 +41,8 @@ export async function POST (request:Request){
                })
            }
            else{
+           console.log("00000000000000000")
+
             const hasedPassword = await bcrypt.hash(password,10)
             existingUserByEmail.password = hasedPassword;
             existingUserByEmail.verifyCode = verifyCode;
@@ -47,11 +51,13 @@ export async function POST (request:Request){
            }
          }
          else{
+            console.log("555555555  inside else")
              const hasedPassword = await bcrypt.hash(password,10)
              const expiryDate = new Date()
              expiryDate.setHours(expiryDate.getHours() + 1)
              
              const newUser = new UserModel({
+
                 username,
                 email,
                 password:hasedPassword,
@@ -61,12 +67,13 @@ export async function POST (request:Request){
                 isAcceptingMessage:true,
                 messages:[]
             })
-
+           
             await newUser.save() 
+            console.log("new user is saved")
 
          }
 
-
+         
             //send verification email
         const emailResponse =  await sendVerificationEmail(
             email,
@@ -84,7 +91,7 @@ export async function POST (request:Request){
          return Response.json({
             success:true ,
             message:"User registered successfully.please verify your email"
-           },{status:500 })
+           },{status:200 })
     }
     catch(error){
         //below line gives error in terminal
