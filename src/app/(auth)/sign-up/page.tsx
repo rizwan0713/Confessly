@@ -10,13 +10,21 @@ import * as z from "zod";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import {useDebounceCallback } from "usehooks-ts"; // because we want to handle setvalue not value
+import { useDebounceCallback } from "usehooks-ts"; // because we want to handle setvalue not value
 
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { signUpSchema } from "@/schemas/signUpSchema";
 import { ApiResponse } from "@/types/ApiResponse";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -28,7 +36,7 @@ const page = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   //Debouncing using  usehook-ts
-  const debounced= useDebounceCallback(setUserName, 500);
+  const debounced = useDebounceCallback(setUserName, 500);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -101,91 +109,93 @@ const page = () => {
         {/* Form */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              name="username"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="username"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
 
-        <FormField
-          name="username"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="username" 
-                {...field}
-                onChange={(e) => {
-                  field.onChange(e)
+                        debounced(e.target.value);
+                      }}
+                    />
+                  </FormControl>
 
-                  debounced(e.target.value)
-                }}
-                 />
+                  {isCheckingUsername && <Loader2 className="animate-spin" />}
+                  <p
+                    className={`text-sm ${
+                      usernameMessage === "Username is unique"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    } `}
+                  >
+                    {usernameMessage}
+                  </p>
 
-              </FormControl>
-              
-                 {
-                  isCheckingUsername && <Loader2 className="animate-spin"/>
-                 }
-                <p className={`text-sm ${usernameMessage === "Username is unique" ?"text-green-500" :"text-red-500"} `}>{usernameMessage}</p>
-              
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="email" {...field} />
+                  </FormControl>
 
-        <FormField
-          name="email"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="email" 
-                {...field}
-                 />
-              </FormControl>
-              
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
+            <FormField
+              name="password"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="password" {...field} />
+                  </FormControl>
 
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          name="password"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>password</FormLabel>
-              <FormControl>
-                <Input  type="password" placeholder="password" 
-                {...field}
-                 />
-              </FormControl>
-              
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" disabled={isSubmitting} >
-           {
-            isSubmitting ? (<>
-            <Loader2 className="mr-2 h-4 w04 animate-spin"></Loader2> Please Wait
-            </>) : ('SignUp')
-           }
-        </Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w04 animate-spin"></Loader2>{" "}
+                  Please Wait
+                </>
+              ) : (
+                "SignUp"
+              )}
+            </Button>
           </form>
-
         </Form>
 
         <div className="text-center mt-4">
-        <p>
-          Already a member?{' '}
-          <Link href={"sign-in"} className="text-bluw-600 hover:text-blue-800" >
-                  Sign In  
-          </Link>
-        </p>
-
+          <p>
+            Already a member?{" "}
+            <Link
+              href={"sign-in"}
+              className="text-bluw-600 hover:text-blue-800"
+            >
+              Sign In
+            </Link>
+          </p>
         </div>
       </div>
     </div>
