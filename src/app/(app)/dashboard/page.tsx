@@ -5,7 +5,7 @@ import { Message } from "@/model/User"
 import { AcceptMessageSchema } from "@/schemas/acceptMessageSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSession } from "next-auth/react"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 
 const page = () => {
@@ -22,6 +22,14 @@ const page = () => {
     const form = useForm({
         resolver:zodResolver(AcceptMessageSchema)
     })
+     //Extracting
+    const {register,watch,setValue} = form
+
+    const acceptMessages = watch('acceptMessages')
+    const fetchAcceptMessage = useCallback( async () => {
+        setSwitchLoading(true)
+    },[setValue])
+
   return (
     <div>Dashboard</div>
   )
