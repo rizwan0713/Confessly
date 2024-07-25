@@ -1,12 +1,13 @@
 import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from "bcryptjs"
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
 export const authOptions: NextAuthOptions  = {
     providers:[
         CredentialsProvider({
+
             id:"credentials",
             name:"credentials",
             credentials: {
@@ -17,18 +18,21 @@ export const authOptions: NextAuthOptions  = {
               async authorize(credentials:any):Promise<any>{
                   await  dbConnect()
                   try{
+                      
+                      console.log("idhar hun mein00");
                       const user =   await UserModel.findOne({
-                            $or:[
-                                {email:credentials.identifier},
-                                {username:credentials.identifier},
+                          
+                          $or:[
+                              {email:credentials.identifier},
+                              {username:credentials.identifier},
                             ]
-                         })
-
-                         if(!user){
+                        })
+                        
+                        if(!user){
                             throw new Error("No user Find With This Email")
-                         }
-
-                         if(!user.isVerified){
+                        }
+                        
+                        if(!user.isVerified){
                             throw new Error("Please verify your Account before login")
                          }
 
@@ -52,7 +56,8 @@ export const authOptions: NextAuthOptions  = {
     callbacks:{
         async jwt({ token, user, }) {
             if(user){
-                token._id = user._id?.toString()
+                console.log("idhar hun mein11")
+                token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages;
                 token.username = user.username
@@ -62,6 +67,8 @@ export const authOptions: NextAuthOptions  = {
         async session({ session,  token }) {
 
             if(token){
+                console.log("idhar hun mein23")
+
                 session.user._id = token._id
                 session.user.isVerified = token.isVerified
                 session.user.isAcceptingMessages = token.isAcceptingMessages

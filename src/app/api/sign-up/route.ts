@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs"
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 import { ifError } from "assert";
 import { messageSchema } from "@/schemas/messageSchema";
+import { Router } from "lucide-react";
 
 
 export async function POST (request:Request){
@@ -70,6 +71,7 @@ export async function POST (request:Request){
            
             await newUser.save() 
             console.log("new user is saved")
+        
 
          }
 

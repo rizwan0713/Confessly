@@ -15,7 +15,7 @@ import { User } from "next-auth"
 import { useSession } from "next-auth/react"
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-
+ 
 const page = () => {
     const [messages,setMessages] = useState<Message[]>([])
     const[isLoading,setIsLoading] = useState(false)
@@ -92,7 +92,7 @@ const page = () => {
     //handlen switvch change
     const handleSwitchChange = async () => {
         try {
-            await axios.post<ApiResponse>('/api/accept-messsage',
+           const response = await axios.post<ApiResponse>('/api/accept-message',
                 {acceptMessages:!acceptMessages} //for toggling
             )
             setValue('acceptMessages',!acceptMessages) //for Ui change on toggling
@@ -118,7 +118,7 @@ const page = () => {
 
 
     //copytoCLipboard
-    const copyToClipboard = () {
+    const copyToClipboard = () => {
         navigator.clipboard.writeText(profileUrl)
         toast({
             title:"Url Copied",
@@ -130,6 +130,7 @@ const page = () => {
     if(!session || !session.user){
         return <div>Please login</div>
     }
+    
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
@@ -162,7 +163,7 @@ const page = () => {
 
       <Button
         className="mt-4"
-        variant="outline"
+        // variant="outline"
         onClick={(e) => {
           e.preventDefault();
           fetchMessages(true);
@@ -178,7 +179,7 @@ const page = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={message._id as string}  // Assert _id as string
               message={message}
               onMessageDelete={handleDeleteMessage}
             />
@@ -192,3 +193,4 @@ const page = () => {
 }
 
 export default page
+
