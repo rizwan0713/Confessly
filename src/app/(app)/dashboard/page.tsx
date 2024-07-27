@@ -34,10 +34,12 @@ const page = () => {
     const {register,watch,setValue} = form
 
     const acceptMessages = watch('acceptMessages')
+
     const fetchAcceptMessage = useCallback( async () => {
         setSwitchLoading(true)
         try {
            const response = await axios.get<ApiResponse>('/api/accept-messages')
+           console.log("respoonse  printing get message in dashboard",response)
             setValue('acceptMessages',response.data.isAcceptingMessages)
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
@@ -57,7 +59,8 @@ const page = () => {
         setIsLoading(true)
         setSwitchLoading(false)
         try {
-            const response = await axios.get<ApiResponse>('/api/get-messages')
+          const response = await axios.get<ApiResponse>('/api/get-messages')
+          console.log("response of get messages in dashboard",response)
             setMessages(response.data.messages || [])
            
             if(refreshRiz){
@@ -111,9 +114,15 @@ const page = () => {
         }
     }
 
+    
+    if(!session || !session.user){
+      return <div>Please login</div>
+    }
+
    const {username} =  session?.user as User 
+   console.log("usernmae ki value",username)
    //TODO research on How to find baseUrl
-    const baseurl = `${window.location.protocol} //${window.location.host}`
+    const baseurl = `${window.location.protocol}//${window.location.host}`
     const profileUrl = `${baseurl}/u/${username}`
 
 
@@ -127,10 +136,13 @@ const page = () => {
         })
     } 
 
-    if(!session || !session.user){
-        return <div>Please login</div>
-    }
-    
+  
+
+
+
+
+
+
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
@@ -139,12 +151,15 @@ const page = () => {
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
         <div className="flex items-center">
           <input
+          
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="input input-bordered w-full p-2 px-3 mr-2"
           />
-          <Button onClick={copyToClipboard}>Copy</Button>
+           <Button variant="dark" onClick={copyToClipboard}>
+            Copy
+          </Button>
         </div>
       </div>
 

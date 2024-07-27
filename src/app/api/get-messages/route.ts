@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 
 export async function GET(request:Request){
     await dbConnect()
+    console.log("get messages route mein huin")
 
     const session = await getServerSession(authOptions);
     const user: User = session?.user as User;

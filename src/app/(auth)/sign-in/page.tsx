@@ -70,13 +70,8 @@ const page = () =>  {
         description: 'Incorrect username or password',
         variant: 'destructive',
       });
-    } else {
-      toast({
-        title: 'Error',
-        description: result.error,
-        variant: 'destructive',
-      });
     }
+    
   }
 
   if(result?.url){

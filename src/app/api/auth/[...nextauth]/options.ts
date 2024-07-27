@@ -56,7 +56,8 @@ export const authOptions: NextAuthOptions  = {
     callbacks:{
         async jwt({ token, user, }) {
             if(user){
-                console.log("idhar hun mein11")
+                console.log("JWT callback - User:", user);
+
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages;
@@ -67,7 +68,11 @@ export const authOptions: NextAuthOptions  = {
         async session({ session,  token }) {
 
             if(token){
-                console.log("idhar hun mein23")
+                console.log("11111111111111111\n");
+
+                console.log("Session callback - Token:", token);
+                console.log("2222222222222222\n");
+
 
                 session.user._id = token._id
                 session.user.isVerified = token.isVerified
