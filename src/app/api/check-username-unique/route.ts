@@ -19,6 +19,7 @@ export async function GET(request:Request){
     // }
     await dbConnect()
     try {
+        // localhost :3000/api/check-username-unique?username=Rizwan   searchParams Contain this url
         const {searchParams} = new URL(request.url)
         const queryParam = {
             username:searchParams.get('username')
@@ -26,7 +27,7 @@ export async function GET(request:Request){
 
         //validate with zod
         const result = UserNameQuerySchema.safeParse(queryParam)
-        console.log(result,"result of username checking unique")
+        // console.log("result of username checking unique",result)  //result of username checking unique { success: true, data: { username: 'umed' } }
 
         if(!result.success){
              const usernameErrors = result.error.format().username?._errors || []
@@ -40,7 +41,7 @@ export async function GET(request:Request){
              })
         }
 
-        const {username} = result.data
+       const {username} = result.data  //result of username checking unique { success: true, data: { username: 'umed' } }
 
        const existingVerifieduser =  await UserModel.findOne({username,isVerified:true})
 

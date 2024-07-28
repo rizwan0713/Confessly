@@ -56,7 +56,9 @@ export const authOptions: NextAuthOptions  = {
     callbacks:{
         async jwt({ token, user, }) {
             if(user){
-                console.log("JWT callback - User:", user);
+                console.log("inside option.ts JWT callback - User:", user);
+                console.log("inside option.ts JWT callback - token", token);
+
 
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
@@ -68,10 +70,9 @@ export const authOptions: NextAuthOptions  = {
         async session({ session,  token }) {
 
             if(token){
-                console.log("11111111111111111\n");
-
-                console.log("Session callback - Token:", token);
-                console.log("2222222222222222\n");
+               
+                console.log(" Inside options.ts Session callback - Token:", session);
+               
 
 
                 session.user._id = token._id

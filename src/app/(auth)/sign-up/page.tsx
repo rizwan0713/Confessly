@@ -59,7 +59,10 @@ const page = () => {
         const response = await axios.get(
           `/api/check-username-unique?username=${username}`
         );
-        console.log("Printing Rsponse of axios request", response);
+        console.log(
+          "Printing Rsponse of chechUsername Unique in page.tsx",
+          response
+        );
         setUsernameMessage(response.data.message);
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
@@ -71,6 +74,7 @@ const page = () => {
       }
     }
   };
+
   useEffect(() => {
     checkUsernameUnique();
   }, [username]);
@@ -190,7 +194,7 @@ const page = () => {
           <p>
             Already a member?{" "}
             <Link
-              href={"sign-in"}
+              href={"/sign-in"}
               className="text-blue-600 hover:text-blue-800"
             >
               Sign In

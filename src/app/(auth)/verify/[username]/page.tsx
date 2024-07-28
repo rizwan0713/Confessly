@@ -4,7 +4,6 @@
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
-import { signUpSchema } from '@/schemas/signUpSchema'
 import { verifySchema } from '@/schemas/verifySchema'
 import { ApiResponse } from '@/types/ApiResponse'
 import { zodResolver } from '@hookform/resolvers/zod'
