@@ -39,7 +39,7 @@ const page = () =>  {
   const router = useRouter();
 
   //zod Implementation
-  console.log("Here i am89")
+
 
   const form = useForm<z.infer<typeof signInSchema>>({
     
@@ -52,7 +52,7 @@ const page = () =>  {
 
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    console.log("Here i am7")
+    
 
     //using next auth for sign in
         const result =  await signIn('credentials',{

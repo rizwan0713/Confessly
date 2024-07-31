@@ -10,16 +10,9 @@ const UserNameQuerySchema = z.object({
 
 export async function GET(request:Request){
 
-    // //
-    // if(request.method !== 'GET'){
-    //     return Response.json({
-    //         success:false,
-    //         message:"Only GET Method allowed",
-    //     },{status:405})
-    // }
     await dbConnect()
     try {
-        // localhost :3000/api/check-username-unique?username=Rizwan   searchParams Contain this url
+        //searchParams Contain this url:-    localhost :3000/api/check-username-unique?username=Rizwan   searchParams Contain this url
         const {searchParams} = new URL(request.url)
         const queryParam = {
             username:searchParams.get('username')

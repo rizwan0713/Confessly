@@ -49,22 +49,21 @@ const page = () => {
       password: "",
     },
   });
-
+  console.log("checkUsernameUnique function called outside");
   //Check username Unique
   const checkUsernameUnique = async () => {
+    console.log("checkUsernameUnique function called inside");
+
     if (username) {
+      console.log("this is username",username);
       setIsCheckingUsername(true);
       setUsernameMessage("");
       try {
-        const response = await axios.get(
-          `/api/check-username-unique?username=${username}`
-        );
-        console.log(
-          "Printing Rsponse of chechUsername Unique in page.tsx",
-          response
-        );
+        const response = await axios.get(`/api/check-username-unique?username=${username}`);
+        console.log("Printing Rsponse of chechUsername Unique in page.tsx",response);
         setUsernameMessage(response.data.message);
       } catch (error) {
+        console.log("Inside errror");
         const axiosError = error as AxiosError<ApiResponse>;
         setUsernameMessage(
           axiosError.response?.data.message ?? "Error Checking Username"
@@ -76,14 +75,15 @@ const page = () => {
   };
 
   useEffect(() => {
-    checkUsernameUnique();
+    checkUsernameUnique()
   }, [username]);
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post<ApiResponse>(`/api/sign-up`, data);
+      const response = await axios.post<ApiResponse>(`/api/sign-up`,data);
       console.log("printing data signup:", data);
+      console.log("response of signup page.tsx",response)
       toast({ title: "success", description: response.data.message });
       router.replace(`/verify/${username}`);
       setIsSubmitting(false);
@@ -122,6 +122,7 @@ const page = () => {
                   <FormControl>
                     <Input
                       placeholder="username"
+                    
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);

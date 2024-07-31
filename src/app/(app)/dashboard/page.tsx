@@ -39,7 +39,7 @@ const page = () => {
         setSwitchLoading(true)
         try {
            const response = await axios.get<ApiResponse>('/api/accept-messages')
-           console.log("respoonse  printing get message in dashboard",response)
+          //  console.log("respoonse  printing get message in dashboard",response)
             setValue('acceptMessages',response.data.isAcceptingMessages)
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
@@ -55,12 +55,14 @@ const page = () => {
     },[setValue])
 
     const fetchMessages = useCallback( async (refreshRiz :boolean = false) => {
+      // console.log("indide fetch Message function")
 
         setIsLoading(true)
         setSwitchLoading(false)
         try {
+          console.log("indide fetch Message function")
           const response = await axios.get<ApiResponse>('/api/get-messages')
-          console.log("response of get messages in dashboard",response)
+          // console.log("response of get messages in dashboard",response)
             setMessages(response.data.messages || [])
            
             if(refreshRiz){
@@ -75,7 +77,7 @@ const page = () => {
             const axiosError = error as AxiosError<ApiResponse>
             toast({
                 title:"Error",
-                description:axiosError.response?.data.message || "failed to fetch Message setting",
+                description:axiosError.response?.data.message || "failed to get Messages setting",
                 variant:"destructive"
             })
         } finally{
@@ -95,7 +97,7 @@ const page = () => {
     //handlen switvch change
     const handleSwitchChange = async () => {
         try {
-           const response = await axios.post<ApiResponse>('/api/accept-message',
+           const response = await axios.post<ApiResponse>('/api/accept-messages',
                 {acceptMessages:!acceptMessages} //for toggling
             )
             setValue('acceptMessages',!acceptMessages) //for Ui change on toggling
@@ -120,7 +122,7 @@ const page = () => {
     }
 
    const {username} =  session?.user as User 
-   console.log("usernmae ki value",username)
+  //  console.log("usernmae ki value",username)
    //TODO research on How to find baseUrl
     const baseurl = `${window.location.protocol}//${window.location.host}`
     const profileUrl = `${baseurl}/u/${username}`
@@ -151,13 +153,14 @@ const page = () => {
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
         <div className="flex items-center">
           <input
+          placeholder="userRiz"
           
             type="text"
             value={profileUrl}
             disabled
             className="input input-bordered w-full p-2 px-3 mr-2"
           />
-           <Button variant="dark" onClick={copyToClipboard}>
+           <Button  onClick={copyToClipboard}>  //variant="dark"
             Copy
           </Button>
         </div>

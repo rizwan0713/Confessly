@@ -17,6 +17,7 @@ import * as z  from  "zod"
 const VerifyAccount = () => {
     const router = useRouter()
     const params = useParams<{username:string}>()
+    console.log("params value useParams() inside verify/username/page.tsx",params)
     const {toast} = useToast()
 
 

@@ -9,16 +9,20 @@ import mongoose from "mongoose";
 
 export async function GET(request:Request){
     await dbConnect()
-    console.log("get messages route mein huin")
+    // console.log("get messages route mein huin")
 
     const session = await getServerSession(authOptions);
+    // console.log("Session in api get-messages route.ts ",session);
     const user: User = session?.user as User;
+    // console.log("user in api get-messages route.ts ",user);
+    // console.log("inside get message route ",session)
+
   
           if (!session || !session.user) {
               return Response.json(
               {
                   success: false,
-                  message: "Not Authenticated",
+                  message: "Not Authenticatedededed",
               },
               {
                   status: 401,
@@ -34,25 +38,25 @@ export async function GET(request:Request){
 
         try {
             const user =  await UserModel.aggregate([
-                {$match:{id:userId}},
+                {$match:{_id:userId}},
                 {$unwind:"$messages"},
                 {$sort:{"messages.createdAt": -1}},
                 {$group:{_id:'$_id',messages:{$push:'$messages'}}}
 
             ])
-
+       console.log("user ki value",user)
             if(!user || user.length === 0){
                 return Response.json({
                     success:false,
-                    messsage:"User not Found"
+                    message:"User not Found"
                 },{status:401})
             }
-
+          console.log("here i am")
             return Response.json({
                 success:true,
                 //Messages array  ||  Using mongodb aggregation
-                messsages: user[0].messages
-            },{status:401})
+                messages: user[0].messages,
+            },{status:200})
 
         } catch (error) {
             console.log("An unexpected error occured:",error)
