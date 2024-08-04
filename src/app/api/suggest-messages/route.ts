@@ -1,7 +1,35 @@
+// import { createGoogleGenerativeAI } from "@ai-sdk/google";
+// import { streamText, StreamingTextResponse } from "ai";
+
+// const google = createGoogleGenerativeAI({
+//   apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+// });
+
+// export const maxDuration = 30;
+
+// export async function POST(request: Request) {
+//   try {
+//     const message = await request.json();
+//     const userPrompt = message.prompt;
+//     const prompt = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be based on the input that user provide. Below is the input that user had provided : 
+//      ${userPrompt} .`;
+
+//     const result = await streamText({
+//       model: google("models/gemini-pro"),
+//       prompt,
+//     });
+
+//     return new StreamingTextResponse(result.toAIStream());
+//   } catch (error) {
+//     console.error("An unexpected error occurred:", error);
+//     throw error;
+//   }
+// }
+
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, StreamingTextResponse } from "ai";
-import { request } from "http";
 
+// Initialize Google Generative AI with your API key
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
 });
@@ -12,11 +40,13 @@ export async function POST(request: Request) {
   try {
     const message = await request.json();
     const userPrompt = message.prompt;
-    const prompt = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be based on the input that user provide. Below is the input that user had provided : 
-     ${userPrompt} .`;
+    const prompt = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be based on the input that user provided: ${userPrompt}.`;
+
+    // Ensure the model name is correctly referenced
+    const model = google("models/gemini-pro");
 
     const result = await streamText({
-      model: google("models/gemini-pro"),
+      model: model as any, // Use 'as any' to bypass TypeScript type checking here, adjust based on your actual types
       prompt,
     });
 

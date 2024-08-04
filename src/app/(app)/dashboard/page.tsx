@@ -6,9 +6,9 @@ import { Message } from "@/model/User"
 import { AcceptMessageSchema } from "@/schemas/acceptMessageSchema"
 import { ApiResponse } from "@/types/ApiResponse"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Separator } from "@radix-ui/react-separator"
-import { Switch } from "@radix-ui/react-switch"
-import { Button } from "@react-email/components"
+import { Separator } from "@/components/ui/separator"
+import { Switch } from "@/components/ui/switch"
+import { Button } from "@/components/ui/button";
 import axios, { AxiosError } from "axios"
 import { Loader2, RefreshCcw } from "lucide-react"
 import { User } from "next-auth"
@@ -146,69 +146,77 @@ const page = () => {
 
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+    <div className=" dark:border-gray-500 dark:border-2  dark:bg-opacity-30	 my-8 mx-4 md:mx-8 lg:mx-auto p-6 dark:bg-gray-700  bg-white rounded w-full max-w-6xl">
+    <h1 className="text-4xl font-bold mb-4 dark:text-white">
+      User Dashboard
+    </h1>
 
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
-        <div className="flex items-center">
-          <input
-          placeholder="userRiz"
-          
-            type="text"
-            value={profileUrl}
-            disabled
-            className="input input-bordered w-full p-2 px-3 mr-2"
-          />
-           <Button  onClick={copyToClipboard}>  //variant="dark"
-            Copy
-          </Button>
-        </div>
+    <div className="mb-4">
+      <h2 className="text-lg dark:text-white font-semibold mb-2">
+        Copy Your Unique Link
+      </h2>{" "}
+      <div className="flex items-center">
+        <input
+        placeholder="Riz"
+          type="text"
+          value={profileUrl}
+          disabled
+          className=" dark:text-white rounded w-full p-2 mr-2 dark:bg-gray-500"
+        />
+        <Button onClick={copyToClipboard} >
+          Copy
+        </Button>
       </div>
+    </div>
 
-      <div className="mb-4">
+    <div className="mb-4">
         <Switch
-          {...register('acceptMessages')}
+          {...register("acceptMessages")}
           checked={acceptMessages}
           onCheckedChange={handleSwitchChange}
           disabled={isSwitchLoading}
         />
-        <span className="ml-2">
-          Accept Messages: {acceptMessages ? 'On' : 'Off'}
+        <span className="ml-2 dark:text-white">
+          Accept Messages: {acceptMessages ? "On" : "Off"}
         </span>
       </div>
-      <Separator />
+    <Separator className="dark:bg-gray-400" />
 
-      <Button
-        className="mt-4"
-        // variant="outline"
-        onClick={(e) => {
-          e.preventDefault();
-          fetchMessages(true);
-        }}
-      >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <RefreshCcw className="h-4 w-4" />
-        )}
-      </Button>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {messages.length > 0 ? (
-          messages.map((message, index) => (
-            <MessageCard
-              key={message._id as string}  // Assert _id as string
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
-          ))
-        ) : (
-          <p>No messages to display.</p>
-        )}
-      </div>
+    <Button
+      className="mt-4 dark:border-gray-400 dark:border-2"
+      variant="outline"
+      onClick={(e) => {
+        e.preventDefault();
+        fetchMessages(true);
+      }}
+    >
+      {isLoading ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <RefreshCcw className="h-4 w-4" />
+      )}
+    </Button>
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6  ">
+      {messages.length > 0 ? (
+        messages.map((message, index) => (
+          <MessageCard
+          className={`dark:bg-indigo-500`}
+            key={message._id}
+            message={message}
+            onMessageDelete={handleDeleteMessage}
+          />
+        ))
+      ) : (
+        <p>No messages to display.</p>
+      )}
     </div>
-  )
+  </div>
+);
 }
+
+    
+
+
 
 export default page
 

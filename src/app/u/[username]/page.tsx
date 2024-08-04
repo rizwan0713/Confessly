@@ -119,18 +119,18 @@ function PublicProfile() {
           <ModeToggle />
         </div>
       </nav>
-      <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl  dark:bg-black">
+      <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl  ">
         <h1 className="text-4xl text-center font-bold mb-4 dark:text-gray-300">
           Public Profile Link
         </h1>
         <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2 dark:text-gray-400">
+          <h2 className="text-lg font-semibold mb-2 dark:text-white">
             Send Anonymous Messages to @{username}
           </h2>{" "}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-6 "
+              className="w-full space-y-6  "
             >
               <FormField
                 control={form.control}
@@ -140,7 +140,7 @@ function PublicProfile() {
                     <FormControl>
                       <Textarea
                         placeholder="Write your anonymous message here"
-                        className="resize-none dark:text-gray-300 dark:border-gray-500 dark:border-2"
+                        className="resize-none dark:text-gray-300 dark:border-gray-500 dark:border-2  dark:bg-gray-700  bg-white"
                         {...field}
                       />
                     </FormControl>
@@ -148,27 +148,29 @@ function PublicProfile() {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-center">
+
+              <div className="flex justify-center ">
                 <Button
                   type="submit"
                   disabled={isSubmitting || !messageContent}
-                  variant={"dark"}
+                
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Please wait
                     </>
-                  ) : ( 
-                    "Send it"
+                  ) : (
+                    "Send "
                   )}
                 </Button>
+
               </div>
             </form>
           </Form>
         </div>
         <div>
-          <h1 className="text-2xl text-center font-bold mt-10 mb-4 dark:text-gray-400">
+          <h1 className="text-2xl text-center font-bold mt-10 mb-4 dark:text-white">
             Ask AI for messages
           </h1>
           <Form {...suggestForm}>
@@ -181,13 +183,13 @@ function PublicProfile() {
                 name="suggestMessage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="dark:text-gray-400">
+                    <FormLabel className=" dark:text-white">
                       Provide your message context to AI
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Write your message to AI"
-                        className="resize-none dark:border-gray-500 dark:border-2 dark:text-gray-300"
+                        className="resize-none dark:border-gray-500 dark:border-2  dark:text-gray-300  dark:bg-gray-700  bg-white " 
                         {...field}
                       />
                     </FormControl>
@@ -199,7 +201,6 @@ function PublicProfile() {
                 <Button
                   className="mb-4"
                   disabled={isSuggestLoading || !userMessage}
-                  variant={"dark"}
                 >
                   {isSuggestLoading ? (
                     <>
@@ -210,12 +211,13 @@ function PublicProfile() {
                     "Suggest Message"
                   )}
                 </Button>
+               
               </div>
             </form>
           </Form>
         </div>
         <Separator className="dark:bg-gray-400" />
-        <h2 className="mt-4 mb-4 dark:text-gray-400">
+        <h2 className="mt-4 mb-4 dark:text-white">
           Click on any message to select it
         </h2>
         <Card>
@@ -230,7 +232,7 @@ function PublicProfile() {
                 <Button
                   key={index}
                   variant="outline"
-                  className="dark:bg-black dark:text-gray-300 dark:border-2 dark:border-gray-500 dark:hover:text-gray-200"
+                  className=" dark:text-gray-300 dark:border-2  dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
                   onClick={() => handleClickChange(message)}
                 >
                   {message}
@@ -239,6 +241,7 @@ function PublicProfile() {
             )}
           </CardContent>
         </Card>
+   
       </div>
     </>
   );

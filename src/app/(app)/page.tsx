@@ -15,6 +15,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { useEffect, useState } from 'react';
+
+
+const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+useEffect(()=>{
+  localStorage.setItem("theme", theme)
+},[])
 
 export default function Home() {
   return (
