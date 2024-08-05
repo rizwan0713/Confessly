@@ -114,13 +114,20 @@ function PublicProfile() {
 
   return (
     <>
+     <div>
       <nav className="p-4 md:p-6 shadow-md dark:shadow-gray-600 text-white">
+        <div className=" flex max-w-[1260px] mx-auto items-cnter">
+        <div className="container text-black text-2xl font-bold dark:text-white">
+          Confessly.
+        </div>
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-end">
           <ModeToggle />
         </div>
+        </div>
       </nav>
+      </div>
       <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl  ">
-        <h1 className="text-4xl text-center font-bold mb-4 dark:text-gray-300">
+        <h1 className="text-4xl text-center font-bold mb-4 dark:text-white">
           Public Profile Link
         </h1>
         <div className="mb-4">
@@ -222,18 +229,20 @@ function PublicProfile() {
         </h2>
         <Card>
           <CardHeader>
-            <CardTitle className="dark:text-gray-400">Messages</CardTitle>
+            <CardTitle className="dark:text-white">Messages</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col space-y-4">
+          <CardContent className="flex flex-col space-y-4 ">
             {error ? (
               <p className="text-red-500">{error.message}</p>
             ) : (
               parseStringMessage(completion).map((message, index) => {
-                console.log("response inside message",JSON.stringify(message))
+                // console.log("response inside message",JSON.stringify(message))
                 return  <Button 
                   key={index}
                   variant="outline"
-                  className=" dark:text-gray-300 dark:border-2  dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
+                  
+                  size="lg"
+                  className=" dark:text-gray-300 dark:border-2 text-wrap dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
                   onClick={() => handleClickChange(message)}
                 >
                   {/* {message} */}
