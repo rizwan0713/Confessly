@@ -48,7 +48,7 @@ function PublicProfile() {
     isLoading: isSuggestLoading,
     error,
   } = useCompletion({
-    api: "/api/suggest-message",
+    api: "/api/suggest-messages",
     initialCompletion: initialMessageString,
   });
 
@@ -228,16 +228,18 @@ function PublicProfile() {
             {error ? (
               <p className="text-red-500">{error.message}</p>
             ) : (
-              parseStringMessage(completion).map((message, index) => (
-                <Button
+              parseStringMessage(completion).map((message, index) => {
+                console.log("response inside message",JSON.stringify(message))
+                return  <Button 
                   key={index}
                   variant="outline"
                   className=" dark:text-gray-300 dark:border-2  dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
                   onClick={() => handleClickChange(message)}
                 >
-                  {message}
+                  {/* {message} */}
+                  {JSON.stringify(message)}
                 </Button>
-              ))
+})
             )}
           </CardContent>
         </Card>
