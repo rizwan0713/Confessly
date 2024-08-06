@@ -19,9 +19,10 @@ import { useEffect, useState } from 'react';
 
 
 const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+
 useEffect(()=>{
   localStorage.setItem("theme", theme)
-},[])
+},[theme])
 
 export default function Home() {
   return (
