@@ -32,7 +32,7 @@ import { Loader2 } from "lucide-react";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 
-const page = () =>  {
+function SignInPage ()   {
 
 
   const { toast } = useToast();
@@ -153,6 +153,6 @@ return (
 );
 
 }
-export default page;
+export default SignInPage;
 
 

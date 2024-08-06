@@ -22,6 +22,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { ApiResponse } from '@/types/ApiResponse';
 
 type MessageCardProps = {
+  key: React.Key; 
   message: Message;
   onMessageDelete: (messageId: string) => void;
 };

@@ -14,7 +14,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as z  from  "zod"
 
-const VerifyAccount = () => {
+function VerifyAccount  ()  {
     const router = useRouter()
     const params = useParams<{username:string}>()
     console.log("params value useParams() inside verify/username/page.tsx",params)
