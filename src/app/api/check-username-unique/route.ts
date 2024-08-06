@@ -1,3 +1,6 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import {z} from "zod"
@@ -8,12 +11,12 @@ const UserNameQuerySchema = z.object({
 })
 
 
-export async function GET(request:Request){
+export async function GET(request: NextRequest){
 
     await dbConnect()
     try {
         //searchParams Contain this url:-    localhost :3000/api/check-username-unique?username=Rizwan   searchParams Contain this url
-        const {searchParams} = new URL(request.url)
+        const {searchParams} = new URL(request.nextUrl)
         const queryParam = {
             username:searchParams.get('username')
         }
