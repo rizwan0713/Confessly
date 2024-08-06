@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,13 +19,15 @@ import {
 import { useEffect, useState } from 'react';
 
 
+export default function Home() {
+
+  
 const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
 useEffect(()=>{
   localStorage.setItem("theme", theme)
 },[theme])
 
-export default function Home() {
   return (
     <>
       {/* Main content */}
