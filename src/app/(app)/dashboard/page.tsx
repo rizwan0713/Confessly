@@ -200,7 +200,7 @@ function UserDashboard  () {
       {messages.length > 0 ? (
         messages.map((message, index) => (
           <MessageCard
-          className={`dark:bg-indigo-500`}
+           
             key={message._id}
             message={message}
             onMessageDelete={handleDeleteMessage}

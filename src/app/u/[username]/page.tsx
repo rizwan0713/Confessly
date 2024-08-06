@@ -77,6 +77,7 @@ function PublicProfile() {
       toast({
         title: response?.data?.message,
       });
+      
     } catch (error) {
       console.log("Error while sending message", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -114,18 +115,19 @@ function PublicProfile() {
 
   return (
     <>
-     <div>
-      <nav className="p-4 md:p-6 shadow-md dark:shadow-gray-600 text-white">
-        <div className=" flex max-w-[1260px] mx-auto items-cnter">
-        <div className="container text-black text-2xl font-bold dark:text-white">
-          Confessly.
-        </div>
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-end">
-          <ModeToggle />
-        </div>
-        </div>
-      </nav>
+      <div>
+        <nav className="p-4 md:p-6 shadow-md dark:shadow-gray-600 text-white">
+          <div className=" flex max-w-[1260px] mx-auto items-cnter">
+            <div className="container text-black text-2xl font-bold dark:text-white">
+              Confessly.
+            </div>
+            <div className="container mx-auto flex flex-col md:flex-row items-center justify-end">
+              <ModeToggle />
+            </div>
+          </div>
+        </nav>
       </div>
+
       <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full max-w-6xl  ">
         <h1 className="text-4xl text-center font-bold mb-4 dark:text-white">
           Public Profile Link
@@ -160,7 +162,6 @@ function PublicProfile() {
                 <Button
                   type="submit"
                   disabled={isSubmitting || !messageContent}
-                
                 >
                   {isSubmitting ? (
                     <>
@@ -171,7 +172,6 @@ function PublicProfile() {
                     "Send "
                   )}
                 </Button>
-
               </div>
             </form>
           </Form>
@@ -196,7 +196,7 @@ function PublicProfile() {
                     <FormControl>
                       <Input
                         placeholder="Write your message to AI"
-                        className="resize-none dark:border-gray-500 dark:border-2  dark:text-gray-300  dark:bg-gray-700  bg-white " 
+                        className="resize-none dark:border-gray-500 dark:border-2  dark:text-gray-300  dark:bg-gray-700  bg-white "
                         {...field}
                       />
                     </FormControl>
@@ -218,7 +218,6 @@ function PublicProfile() {
                     "Suggest Message"
                   )}
                 </Button>
-               
               </div>
             </form>
           </Form>
@@ -237,22 +236,22 @@ function PublicProfile() {
             ) : (
               parseStringMessage(completion).map((message, index) => {
                 // console.log("response inside message",JSON.stringify(message))
-                return  <Button 
-                  key={index}
-                  variant="outline"
-                  
-                  size="lg"
-                  className=" dark:text-gray-300 dark:border-2 text-wrap dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
-                  onClick={() => handleClickChange(message)}
-                >
-                  {/* {message} */}
-                  {JSON.stringify(message)}
-                </Button>
-})
+                return (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    size="lg"
+                    className=" dark:text-gray-300 dark:border-2 text-wrap dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
+                    onClick={() => handleClickChange(message)}
+                  >
+                    {/* {message} */}
+                    {JSON.stringify(message)}
+                  </Button>
+                );
+              })
             )}
           </CardContent>
         </Card>
-   
       </div>
     </>
   );
