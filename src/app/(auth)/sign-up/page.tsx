@@ -49,7 +49,7 @@ function SignUpPage ()  {
       password: "",
     },
   });
-  console.log("checkUsernameUnique function called outside");
+  console.log("checkUsernameUnique function called outside console");
   //Check username Unique
   const checkUsernameUnique = async () => {
     console.log("checkUsernameUnique function called inside");

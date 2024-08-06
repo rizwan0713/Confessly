@@ -22,11 +22,29 @@ import { useEffect, useState } from 'react';
 export default function Home() {
 
   
-const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+// const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
-useEffect(()=>{
-  localStorage.setItem("theme", theme)
-},[theme])
+// useEffect(()=>{
+//   localStorage.setItem("theme", theme)
+// },[theme])
+
+const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
+  
 
   return (
     <>
