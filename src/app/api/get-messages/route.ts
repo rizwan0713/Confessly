@@ -43,13 +43,13 @@ export async function GET(request:Request){
                 {$sort:{"messages.createdAt": -1}},
                 {$group:{_id:'$_id',messages:{$push:'$messages'}}}
 
-            ])
+            ]).exec()
        console.log("user ki value",user)
             if(!user || user.length === 0){
                 return Response.json({
                     success:false,
                     message:"User not Found"
-                },{status:401})
+                },{status:400})
             }
           console.log("here i am")
             return Response.json({
