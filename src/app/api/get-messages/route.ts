@@ -44,14 +44,16 @@ export async function GET(request:Request){
                 {$group:{_id:'$_id',messages:{$push:'$messages'}}}
 
             ]).exec()
+
        console.log("user ki value",user)
             if(!user || user.length === 0){
                 return Response.json({
                     success:false,
-                    message:"User not Found"
-                },{status:400})
+                    message:"User not Found "
+                },{status:404})
             }
           console.log("here i am")
+
             return Response.json({
                 success:true,
                 //Messages array  ||  Using mongodb aggregation
@@ -63,7 +65,7 @@ export async function GET(request:Request){
 
             return Response.json({
                 success:false,
-                message:"user Not Found"
+                message:"Internal server error'"
             },{status:500})
             
         }
