@@ -49,7 +49,7 @@ export async function GET(request:Request){
             if(!user || user.length === 0){
                 return Response.json({
                     success:false,
-                    message:"User not Found "
+                    message:"No Message to display "
                 },{status:404})
             }
           console.log("here i am")
