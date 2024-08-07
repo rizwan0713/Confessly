@@ -61,7 +61,7 @@ function SignInPage ()   {
           password:data.password
         });
 
-      console.log("Here i 2")
+      console.log("Here i 2 resule:",result);
 
   if (result?.error) {
     if (result.error === 'CredentialsSignin') {
