@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function middleware(request: NextRequest) {
 
     const token = await getToken({req:request})
+    console.log("printing token in middleware",token);
     const url = request.nextUrl
     // console.log("printing url of next url  provided by request.nexturl",url);
     // printing url of next url  provided by request.nexturl {
