@@ -118,7 +118,7 @@ function UserDashboard  () {
 
     
     if(!session || !session.user){
-      return <div>Please login</div>
+      return <div></div>
     }
 
    const {username} =  session?.user as User 
@@ -126,6 +126,7 @@ function UserDashboard  () {
    //TODO research on How to find baseUrl
     const baseurl = `${window.location.protocol}//${window.location.host}`
     const profileUrl = `${baseurl}/u/${username}`
+
 
 
     //copytoCLipboard
