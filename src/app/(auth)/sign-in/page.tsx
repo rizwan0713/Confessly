@@ -31,6 +31,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
+import Image from 'next/image';
 
 function SignInPage ()   {
 
@@ -135,6 +136,25 @@ return (
           </Button>
         </form>
       </Form>
+     
+
+
+        <Button
+                  className="font-semibold flex-1 w-full"
+                  type="button"
+                  onClick={() => signIn("google")}
+                >
+                  SignIn with Google
+                  {/* <Image
+                    className="ml-2"
+                    height={20}
+                    width={20}
+                    src={"/google.png"}
+                    alt="logo"
+                  /> */}
+        </Button>
+
+      
 
       <div className="text-center mt-4">
         <p>
