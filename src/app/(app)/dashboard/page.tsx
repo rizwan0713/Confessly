@@ -26,6 +26,9 @@ function UserDashboard  () {
     }
 
     const {data:session} = useSession()
+
+    const user : User = session?.user as User
+
     //ZOD For is accepting MEssages
     const form = useForm({
         resolver:zodResolver(AcceptMessageSchema)
@@ -125,7 +128,8 @@ function UserDashboard  () {
   //  console.log("usernmae ki value",username)
    //TODO research on How to find baseUrl
     const baseurl = `${window.location.protocol}//${window.location.host}`
-    const profileUrl = `${baseurl}/u/${username}`
+    // const profileUrl = `${baseurl}/u/${username}`
+    const profileUrl = `${baseurl}u/${username || user?.email}`
 
 
 
