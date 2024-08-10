@@ -129,7 +129,7 @@ function UserDashboard  () {
    //TODO research on How to find baseUrl
     const baseurl = `${window.location.protocol}//${window.location.host}`
     // const profileUrl = `${baseurl}/u/${username}`
-    const profileUrl = `${baseurl}u/${username || user?.email}`
+    const profileUrl = `${baseurl}/u/${username || user?.email}`
 
 
 
