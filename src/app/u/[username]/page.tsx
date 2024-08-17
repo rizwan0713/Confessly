@@ -38,7 +38,17 @@ const initialMessageString =
 
 function PublicProfile() {
   const params = useParams();
-  const username = params.username;
+  // console.log("params inside u [username]: ",params)
+  
+  // Ensure encodedUsername is a string
+  const encodedUsername = Array.isArray(params.username)
+  ? params.username[0]
+  : params.username;
+  
+  const username = encodedUsername ? decodeURIComponent(encodedUsername) : '';
+
+
+  console.log("username inside u [username]:",username);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 

@@ -125,12 +125,17 @@ function UserDashboard  () {
     }
 
    const {username} =  session?.user as User 
+    console.log("username in dashboard from seesion",{username});
   //  console.log("usernmae ki value",username)
    //TODO research on How to find baseUrl
     const baseurl = `${window.location.protocol}//${window.location.host}`
     // const profileUrl = `${baseurl}/u/${username}`
-    const profileUrl = `${baseurl}/u/${username || user?.email}`
+    console.log("baseurl in dashboard from ",baseurl);
 
+    const profileUrl = `${baseurl}/u/${username || user?.email}`
+    console.log("profile url in dashboard from ",profileUrl);
+
+    
 
 
     //copytoCLipboard
