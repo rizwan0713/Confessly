@@ -23,7 +23,7 @@ export async function DELETE(
 
   try {
     const updateResult = await UserModel.updateOne(
-      { _id: _user._id },
+      { email: _user.email },
       { $pull: { messages: { _id: messageId } } }
     );
 
@@ -41,7 +41,7 @@ export async function DELETE(
   } catch (error) {
     console.error('Error deleting message:', error);
     return Response.json(
-      { message: 'Error deleting message', success: false },
+      { message: 'Error deleting message ji', success: false },
       { status: 500 }
     );
   }

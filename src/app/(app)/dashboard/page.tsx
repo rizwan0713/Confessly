@@ -42,12 +42,12 @@ function UserDashboard  () {
         setSwitchLoading(true)
         try {
            const response = await axios.get<ApiResponse>('/api/accept-messages')
-          //  console.log("respoonse  printing get message in dashboard",response)
+           console.log("respoonse  printing get message in dashboard",response)
             setValue('acceptMessages',response.data.isAcceptingMessages)
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
             toast({
-                title:"Error",
+                title:"Error hai ji yahan Fetch Accept Message",
                 description:axiosError.response?.data.message || "failed to fetch Message setting",
                 variant:"destructive"
             })
@@ -79,7 +79,7 @@ function UserDashboard  () {
             
             const axiosError = error as AxiosError<ApiResponse>
             toast({
-                title:"Error",
+                title:"Error ji",
                 description:axiosError.response?.data.message || "failed to get Messages setting",
                 variant:"destructive"
             })
@@ -111,7 +111,7 @@ function UserDashboard  () {
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
             toast({
-                title:"Error",
+                title:"Error ji",
                 description:axiosError.response?.data.message || "failed to fetch Message setting",
                 variant:"destructive"
             })

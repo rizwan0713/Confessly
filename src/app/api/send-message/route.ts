@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const { username, content } = await request.json();
 
   try {
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({$or: [{ username }, { email: decodeURIComponent(username) }]});
     if (!user) {
       return Response.json(
         {
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     //Is User Accepting the messages
-    if (!user.isAcceptingMessage) {
+    if (!user.isAcceptingMessages) {
       return Response.json(
         {
           success: false,

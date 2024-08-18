@@ -15,7 +15,8 @@ export async function GET(request:Request){
     // console.log("Session in api get-messages route.ts ",session);
     const user: User = session?.user as User;
     // console.log("user in api get-messages route.ts ",user);
-    // console.log("inside get message route ",session)
+    console.log("inside get message route session ",session)
+    console.log("inside get message route user:",user)
 
   
           if (!session || !session.user) {
@@ -35,10 +36,12 @@ export async function GET(request:Request){
         //then we have to wrote like this because we have converted user.ID into string in options.ts File
 
         const userId = new mongoose.Types.ObjectId(user._id)  //This is correct
-
+        const email = user?.email;
         try {
+            console.log("userId",userId)
+
             const user =  await UserModel.aggregate([
-                {$match:{_id:userId}},
+                {$match:{email:email}},
                 {$unwind:"$messages"},
                 {$sort:{"messages.createdAt": -1}},
                 {$group:{_id:'$_id',messages:{$push:'$messages'}}}

@@ -4,12 +4,16 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
 
+
+// route will handle the toggle functionality - on/off
+
 export async function POST(request: Request) {
   await dbConnect();
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
 
   if (!session || !session.user) {
+    console.log("sessnion in accepoting messages",session)
     return Response.json(
       {
         success: false,
@@ -21,13 +25,14 @@ export async function POST(request: Request) {
     );
   }
 
+
   const userId = user._id;
   const { acceptMessages } = await request.json();
 
   try {
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      userId,
-      { isAcceptingMessage: acceptMessages },
+    const updatedUser = await UserModel.findOneAndUpdate(
+      {email:user.email},
+      { isAcceptingMessages: acceptMessages },
       { new: true }
     );
 
@@ -43,6 +48,7 @@ export async function POST(request: Request) {
       );
     }
 
+     // Successfully updated message acceptance status
     return Response.json(
       {
         succes: true,
@@ -68,12 +74,16 @@ export async function POST(request: Request) {
   }
 }
 
+
+
+
+// route to get status of accepting message
 export async function GET(request: Request) {
   dbConnect();
 
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
-
+  console.log("|user value i aceept meesages",user)
   if (!session || !session.user) {
     return Response.json(
       {
@@ -86,15 +96,21 @@ export async function GET(request: Request) {
     );
   }
 
-  const userId = user._id;
+ 
 
   try {
-    const foundUser = await UserModel.findById(userId);
+    
+    const email = user.email;
 
+
+    const foundUser = await UserModel.findOne({email});
+    console.log("user value:" ,user)
+
+    console.log("Founduser value:" ,foundUser)
     if (!foundUser) {
       return Response.json(
         {
-          succes: false,
+          success: false,
           message: "user not found",
         },
         {
@@ -105,20 +121,20 @@ export async function GET(request: Request) {
 
     return Response.json(
       {
-        succes: true,
-        isAcceptingMessages: foundUser.isAcceptingMessage,
+        success: true,
+        isAcceptingMessages: foundUser.isAcceptingMessages,
       },
       {
         status: 200,
       }
     );
   } catch (error) {
-    console.log("failed to update user status to accept messages");
+    console.log("failed to update user status to accept messages han ji");
 
     return Response.json(
       {
         succes: false,
-        message: "Error in getting message acceptance status ",
+        message: "Error in getting message acceptance status ji ",
       },
       {
         status: 500,

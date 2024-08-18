@@ -63,6 +63,16 @@ export const authOptions: NextAuthOptions  = {
 
         async signIn({ user, account, profile}){
             await dbConnect();
+            console.log("user through in Sign in using providers:",user)
+            // user value through in Sign in using providers: {
+            //     id: '100722680901598566756',
+            //     name: 'Mohd Rizwan Salmani',
+            //     email: 'rizwansalmanirsa@gmail.com',
+            //     image: 'https://lh3.googleusercontent.com/a/ACg8ocIxTfTGf0ZmUAn03twniMmNMJP8uGTuWxxBdkxiEOieF1ytQxAd=s96-c'
+            //   }
+
+
+
             // console.log({ user, account, profile})
             // first check the email is alreay present in database or not
             // if yes - it means details are already saved - do nothing
@@ -71,7 +81,7 @@ export const authOptions: NextAuthOptions  = {
             // TODO: will handle profile.login  typescript issue
             const userFound = await UserModel.findOne({email})
             if(!userFound){
-              // console.log('new user')
+              console.log('new user')
               // save it to database 
               const password = Math.floor(10000+ Math.random()*9000).toString()
               const expiryDate = new Date();
@@ -97,7 +107,7 @@ export const authOptions: NextAuthOptions  = {
 
         async jwt({ token, user, }) {
             if(user){
-
+                console.log("user inside jwt auth options",user)
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessage = user.isAcceptingMessage;
@@ -108,8 +118,12 @@ export const authOptions: NextAuthOptions  = {
         async session({ session,  token }) {
 
             if(token){
- 
+                
                 session.user._id = token._id
+                console.log("token ki in session",token)
+
+                console.log("token ki id in session",token._id)
+                console.log("session.user._id ",session.user._id )
                 session.user.isVerified = token.isVerified
                 session.user.isAcceptingMessage = token.isAcceptingMessage
                 session.user.username = token.username

@@ -39,7 +39,7 @@ const initialMessageString =
 function PublicProfile() {
   const params = useParams();
   // console.log("params inside u [username]: ",params)
-  
+
   // Ensure encodedUsername is a string
   const encodedUsername = Array.isArray(params.username)
   ? params.username[0]
@@ -94,7 +94,7 @@ function PublicProfile() {
       const errorMessage = axiosError?.response?.data?.message;
 
       toast({
-        title: "Request failed",
+        title: "Request failed ji",
         description: errorMessage,
         variant: "destructive",
       });
