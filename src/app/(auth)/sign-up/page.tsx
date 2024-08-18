@@ -28,6 +28,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 function SignUpPage ()  {
   const [username, setUserName] = useState("");
@@ -190,6 +192,29 @@ function SignUpPage ()  {
             </Button>
           </form>
         </Form>
+
+        <div className="flex items-center gap-4 ">
+                <div className="border flex-1"></div>
+                <div>Or</div>
+                <div className="border flex-1"></div>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center -mt-4 gap-4 justify-center ">
+                
+                <Button
+                  className="font-semibold flex-1 w-full"
+                  type="button"
+                  onClick={() => signIn("google")}
+                >
+                  SignIn with Google
+                  <Image
+                    className="ml-2"
+                    height={20}
+                    width={20}
+                    src={"/google.png"}
+                    alt="logo"
+                  />
+                </Button>
+              </div>
 
         <div className="text-center mt-4">
           <p>

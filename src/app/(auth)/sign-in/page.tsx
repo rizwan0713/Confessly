@@ -145,13 +145,13 @@ return (
                   onClick={() => signIn("google")}
                 >
                   SignIn with Google
-                  {/* <Image
+                  <Image
                     className="ml-2"
-                    height={20}
-                    width={20}
-                    src={"/google.png"}
+                    height={30}
+                    width={30}
+                    src={"/Google.png"}
                     alt="logo"
-                  /> */}
+                  />
         </Button>
 
       
