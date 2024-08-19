@@ -4,6 +4,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
+  const session = await getToken({
+    req:request,
+    secret:process.env.NEXTAUTH_SECRET
+  })
 
     const token = await getToken({req:request})
     console.log("printing token in middleware",token);
@@ -23,7 +27,7 @@ export async function middleware(request: NextRequest) {
     //   searchParams: URLSearchParams {  },
     //   hash: ''
     // }
-    if (token && (
+    if ((token || session) && (
       
                       url.pathname.startsWith('/sign-in') ||
                       url.pathname.startsWith('/sign-up') ||
