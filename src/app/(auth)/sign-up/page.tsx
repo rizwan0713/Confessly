@@ -208,8 +208,8 @@ function SignUpPage ()  {
                   SignIn with Google
                   <Image
                     className="ml-2"
-                    height={20}
-                    width={20}
+                    height={30}
+                    width={30}
                     src={"/Google.png"}
                     alt="logo"
                   />
