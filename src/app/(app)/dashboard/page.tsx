@@ -79,7 +79,7 @@ function UserDashboard  () {
             
             const axiosError = error as AxiosError<ApiResponse>
             toast({
-                title:"Error ji",
+                // title:"Error ji",
                 description:axiosError.response?.data.message || "failed to get Messages setting",
                 variant:"default"
             })
