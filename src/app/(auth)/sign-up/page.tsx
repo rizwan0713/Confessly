@@ -210,7 +210,7 @@ function SignUpPage ()  {
                     className="ml-2"
                     height={20}
                     width={20}
-                    src={"/google.png"}
+                    src={"/Google.png"}
                     alt="logo"
                   />
                 </Button>
