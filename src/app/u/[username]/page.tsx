@@ -83,10 +83,11 @@ function PublicProfile() {
         username,
         ...data,
       });
-
+    
       toast({
         title: response?.data?.message,
       });
+      
       
     } catch (error) {
       console.log("Error while sending message", error);
