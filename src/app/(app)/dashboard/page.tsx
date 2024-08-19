@@ -156,7 +156,7 @@ function UserDashboard  () {
 
 
   return (
-    <div className=" dark:border-gray-500 dark:border-2  dark:bg-opacity-30	 my-8 mx-4 md:mx-8 lg:mx-auto p-6 dark:bg-gray-700  bg-white rounded w-full max-w-6xl">
+    <div className=" dark:border-gray-500 dark:border-2  dark:bg-opacity-30	 my-8 mx-4 md:mx-8 lg:mx-auto p-6 dark:bg-gray-700  bg-white rounded w-full max-w-6xl  overflow-x-hidden">
     <h1 className="text-4xl font-bold mb-4 dark:text-white">
       User Dashboard
     </h1>
