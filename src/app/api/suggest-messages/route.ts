@@ -18,7 +18,7 @@ export async function POST(request: Request ,response: Response) {
   try {
     const message = await request.json();
     const userPrompt = message.prompt;
-    const prompt = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be based on the input that user provide. Below is the input that user had provided : 
+    const prompt = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be based on the input that user provide and does not exceed length then 100 Character. Below is the input that user had provided : 
      ${userPrompt} .`;
 
      const model = google('models/gemini-1.5-pro-latest');
