@@ -81,7 +81,7 @@ function UserDashboard  () {
             toast({
                 title:"Error ji",
                 description:axiosError.response?.data.message || "failed to get Messages setting",
-                variant:"destructive"
+                variant:"default"
             })
         } finally{
             setIsLoading(false)
