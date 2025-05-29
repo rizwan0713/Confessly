@@ -21,7 +21,8 @@ export async function POST(request: Request ,response: Response) {
     const prompt = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be based on the input that user provide and Any suggested message does not exceed length of 100 Character. Below is the input that user had provided : 
      ${userPrompt} .`;
 
-     const model = google('models/gemini-1.5-pro-latest');
+     // const model = google('models/gemini-1.5-pro-latest');
+    const model = google('models/gemini-2.0-pro-latest');
 
      const result = await streamText({
     
