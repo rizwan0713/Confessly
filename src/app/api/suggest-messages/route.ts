@@ -22,7 +22,9 @@ export async function POST(request: Request ,response: Response) {
      ${userPrompt} .`;
 
      // const model = google('models/gemini-1.5-pro-latest');
-    const model = google('models/gemini-2.0-pro-latest');
+    // const model = google('models/gemini-2.0-pro-latest');
+     const model = google('models/gemini-2.0-pro');
+    
 
      const result = await streamText({
     
