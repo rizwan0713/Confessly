@@ -255,8 +255,7 @@ function PublicProfile() {
                     className=" dark:text-gray-300 dark:border-2 text-wrap dark:bg-gray-700  bg-white dark:border-gray-500 dark:hover:text-gray-200"
                     onClick={() => handleClickChange(message)}
                   >
-                    {/* {message} */}
-                    {JSON.stringify(message)}
+                    {message.trim()}
                   </Button>
                 );
               })
