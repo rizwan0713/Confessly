@@ -23,9 +23,10 @@ export async function POST(request: Request) {
     const promptText = `${systemInstruction}\n\n${userMessage}`;
 
     const result = await streamText({
-      model: google("models/gemini-3.6-flash"),
+      model: google("models/gemini-3.6-flash") as any,
       prompt: promptText,
     });
+
 
     return new StreamingTextResponse(result.toAIStream());
   } catch (error: any) {
